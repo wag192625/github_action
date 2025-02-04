@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - features
 
 jobs:
   hello-world:
