@@ -29,5 +29,5 @@ jobs:
 
       - name: copy file to remote server
       # scp에서는 port를 지정할 때 대문자 P를 써야함
-        run: scp -P ${{ secrets.SSH_PORT }} README.md ${{ secrets.SSH_NAME }}@${{ secrets.SSH_HOST }}:~/
+        run: scp -P ${{ secrets.SSH_PORT }} README.md ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:~/
 
