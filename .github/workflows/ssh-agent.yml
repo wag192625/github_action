@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-24.04 # github 워크스페이스 환경
 
     steps: # 실행할 작업(step)
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: run ssh-agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
@@ -17,8 +20,14 @@ jobs:
 
       # 원격 서버를 신뢰할 수 있는 서버로 등록하는 과정
       # known_hosts : 원격 서버들의 지문이 저장된 파일
+      # port를 변경했기 때문에 -p {{ secrets.SSH_PORT }} 입력한 것
       - name: Add Remote Server Fingerprint to Known Hosts
         run: ssh-keyscan -H -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST}} >> ~/.ssh/known_hosts || true
 
       - name: create file on remote server
         run: ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST}} "touch 'hello world.txt'"
+
+      - name: copy file to remote server
+      # scp에서는 port를 지정할 때 대문자 P를 써야함
+        run: scp -P ${{ secrets.SSH_PORT }} README.md ${{ secrets.SSH_NAME }}@${{ secrets.SSH_HOST }}:~/
+
