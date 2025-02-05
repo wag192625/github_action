@@ -1,15 +1,15 @@
-name: Hello World
+# name: Hello World
 
-on:
-  push:
-    branches:
-      - main
-      - develop
+# on:
+#   push:
+#     branches:
+#       - main
+#       - develop
 
-jobs:
-  hello-world:
-    runs-on: ubuntu-24.04
+# jobs:
+#   hello-world:
+#     runs-on: ubuntu-24.04
 
-    steps:
-      - name: Print hello world
-        run: echo 'Hello World'
+#     steps:
+#       - name: Print hello world
+#         run: echo 'Hello World'
