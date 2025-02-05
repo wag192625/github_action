@@ -14,3 +14,6 @@ jobs:
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: 52.78.68.206
+          SSH_PORT: 2222
+          SSH_USERNAME: ubuntu
