@@ -90,7 +90,7 @@ jobs:
       - name: Pull Image & Up Container
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SSH_HOST }}t
+          host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME}}
           key: ${{ secrets.SSH_PRIVATE_KEY}}
           port: ${{ secrets.SSH_PORT }}
