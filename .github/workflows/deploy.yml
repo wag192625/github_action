@@ -96,9 +96,9 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/work-directoty
-            docker compose -f docker-compose-actions-cache.yml pull
-            docker compose -f docker-compose-actions-cache.yml down
-            docker compose -f docker-compose-actions-cache.yml up -d
+            docker-compose -f docker-compose-actions-cache.yml pull
+            docker-compose -f docker-compose-actions-cache.yml down
+            docker-compose -f docker-compose-actions-cache.yml up -d
 
       # 액션
       - name: End Message - Success
