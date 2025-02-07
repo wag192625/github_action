@@ -27,8 +27,8 @@ jobs:
         uses: actions/cache@v4.2.0
         with:
           path: /tmp/.buildx-cache
-          key: docker-image-layer-cache-$${{ github.sha }}
-          restore-keys: docker-image-layer-cache
+          key: docker-image-layer-cache-${{ github.sha }}
+          restore-keys: docker-image-layer-cache-
 
       - name: run ssh-agent
         uses: webfactory/ssh-agent@v0.9.0
@@ -108,6 +108,7 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK}}
           title: '🚀 배포 종료 - 성공'
+          color: 0x99ff00
 
       # 액션
       - name: End Message - Fail
@@ -116,3 +117,4 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK}}
           title: '🚀 배포 종료 - 실패'
+          color: 0xff0000
