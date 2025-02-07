@@ -21,13 +21,13 @@ services:
       context: ./backend
       # 캐시 저장 경로
       cache_to: 
-       - type=local, dest=/tmp/.build-cach2/backend, mode=max
+       - type=local, dest=/tmp/.build-cache/backend, mode=max
        # type : 캐시의 종류
        #  src : 캐시를 불러올 경로
        # mode : 캐시의 저장 방식(max : 최대한 많은 캐시 데이터를 저장) 
       # 캐시를 불러올 경로
       cache-from:
-       - type=local, src=/tmp/.build-cach2/backend
+       - type=local, src=/tmp/.build-cache/backend
 
     image: wag192625/backend:latest
     env_file:

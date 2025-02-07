@@ -114,4 +114,4 @@ jobs:
         if: failure()
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK}}
-          title: '🚀 배포 종료 - 실패패'
+          title: '🚀 배포 종료 - 실패'
