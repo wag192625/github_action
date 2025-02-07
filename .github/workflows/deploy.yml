@@ -74,7 +74,7 @@ jobs:
         run: echo '${{ secrets.DOCKER_PASSWORD}}' | docker login -u '${{ secrets.DOCKER_USERNAME }}' --password-stdin
 
       - name: Docker Image Push
-        run: docker compose push
+        run: docker compose -f docker-compose-actions-cache.yml push
 
       # 파일 복붙
       - name: Copy .env / docker-compose.yml
@@ -96,9 +96,9 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/work-directoty
-            docker-compose -f docker-compose-actions-cache.yml pull
-            docker-compose -f docker-compose-actions-cache.yml down
-            docker-compose -f docker-compose-actions-cache.yml up -d
+            docker compose -f docker-compose-actions-cache.yml pull
+            docker compose -f docker-compose-actions-cache.yml down
+            docker compose -f docker-compose-actions-cache.yml up -d
 
       # 액션
       - name: End Message - Success
