@@ -74,8 +74,20 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK}}
           title: '🚀 배포 시작'
-          description: |
-            Repository: ${{ github.repository }}
-            Branch: ${{ github.ref_name }}
-            Commit: ${{ github.event.head_commit.message }}
           color: 0x0000ff
+
+      # 액션
+      - name: End Message - Success
+        uses: sarisia/actions-status-discord@v1
+        if: success()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK}}
+          title: '🚀 배포 종료 - 성공'
+
+      # 액션
+      - name: End Message - Fail
+        uses: sarisia/actions-status-discord@v1
+        if: failure()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK}}
+          title: '🚀 배포 종료 - 실패패'
