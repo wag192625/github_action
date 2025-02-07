@@ -67,3 +67,15 @@ jobs:
             docker compose pull
             docker compose down
             docker compose up -d
+
+      # 액션 시작 알림 메세지
+      - name: Start Message
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK}}
+          title: '🚀 배포 시작'
+          description: |
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.event.head_commit.message }}
+          color: 0x0000ff
