@@ -95,7 +95,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY}}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd ~/work-directoty
+            cd ~/work-directory
             docker compose -f docker-compose-actions-cache.yml pull
             docker compose -f docker-compose-actions-cache.yml down
             docker compose -f docker-compose-actions-cache.yml up -d
