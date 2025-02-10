@@ -12,14 +12,14 @@ pipeline {
             withCredentials([file(credentialsId: 'env-file', variable:'env_file')]) {
               // 젠킨스 서비스 내 .env 파일을
               // 파이프라닝 프로젝트 내부로 복사
-              sh 'cp $env_file .env'
+              sh 'cp $env_file ./.env'
 
               // 파일 권한 설정
               // 소유자 : 읽기 + 쓰기
               // 그 외 : 읽기 권한
               // 번외) 권한 - 읽기4 쓰기2 실행1
               sh 'chmod 644 .env'
-              
+
             }
           }
         }
