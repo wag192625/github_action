@@ -18,6 +18,7 @@ pipeline {
 		    always {
 				    echo '항상 실행된다.'
 		    }
+        
 		    success {
 				    echo '성공 시 실행된다.'
 		    }
