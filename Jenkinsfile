@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-      stages ("Copy Enviroment Variable File") {
+      stage ("Copy Enviroment Variable File") {
         steps{
           script {
             // withCredentials : Credential 서비스를 활용하겠다.
