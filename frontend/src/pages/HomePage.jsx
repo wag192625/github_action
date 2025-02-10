@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import articlesApi from "../api/articlesApi";
-import ArticleForm from "../components/ArticleForm";
-import Article from "../components/Article";
+import { useEffect, useState } from 'react';
+import articlesApi from '../api/articlesApi';
+import ArticleForm from '../components/ArticleForm';
+import Article from '../components/Article';
 
 export default function HomePage() {
   const [articles, setArticles] = useState([]);
@@ -17,15 +17,10 @@ export default function HomePage() {
 
   return (
     <div>
+      <h1>HomePage</h1>
       <ArticleForm fetchArticles={fetchArticles}></ArticleForm>
       {articles.map((article) => {
-        return (
-          <Article
-            key={article.id}
-            article={article}
-            isDetail={false}
-          ></Article>
-        );
+        return <Article key={article.id} article={article} isDetail={false}></Article>;
       })}
     </div>
   );
