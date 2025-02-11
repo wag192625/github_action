@@ -1,7 +1,7 @@
 # HTTP(80) 설정
 server {
     listen 80;
-    server_name 52.78.68.206.sslip.io;
+    server_name ${DOMAIN};
 
     location / {
         return 301 https://$host$request_uri;
