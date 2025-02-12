@@ -9,6 +9,7 @@ export default function HomePage() {
   async function fetchArticles() {
     const response = await articlesApi.getArticles();
     setArticles(response.reverse());
+    console.log(response);
   }
 
   useEffect(() => {

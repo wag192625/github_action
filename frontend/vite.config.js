@@ -12,4 +12,16 @@ export default defineConfig({
       threshold: 10240, // 압축 최소 크기 (10KB 이상만 압축)
     }),
   ],
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:8080/api/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+        secure: false,
+        ws: true,
+      },
+    },
+  },
 });
+  

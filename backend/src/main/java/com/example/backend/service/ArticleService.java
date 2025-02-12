@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,18 +17,40 @@ import java.util.stream.Collectors;
 public class ArticleService {
 
 	private final ArticleRepository articleRepository;
-
+	private final S3Service s3Service;
+	//	@Transactional
+//	public ArticleResponseDto createArticle(ArticleRequestDto requestDto) {
+//
+//		Article article = Article.builder()
+//				.title(requestDto.getTitle())
+//				.content(requestDto.getContent())
+//				.build();
+//
+//		Article savedArticle = articleRepository.save(article);
+//
+//		return toResponseDto(savedArticle);
+//	}
 	@Transactional
 	public ArticleResponseDto createArticle(ArticleRequestDto requestDto) {
+		// S3 업로드
+		// S3service.upload() 호출
+		// uploadResult - imageUrl, s3Key 저장
+	  Map<String ,String > uploadResult = s3Service.uploadFile(requestDto.getFile());
+
+		String imageUrl = uploadResult.get("imageUrl");
+		String s3Key = uploadResult.get("s3Key");
 
 		Article article = Article.builder()
 				.title(requestDto.getTitle())
 				.content(requestDto.getContent())
+				.imageUrl(imageUrl)
+				.s3Key(s3Key)
+				.originFileName(requestDto.getFile().getOriginalFilename())
 				.build();
 
-		Article savedArticle = articleRepository.save(article);
 
-		return toResponseDto(savedArticle);
+		Article saveArticle = articleRepository.save(article);
+		return toResponseDto(saveArticle);
 	}
 
 	@Transactional
@@ -49,6 +72,13 @@ public class ArticleService {
 	}
 
 
+	@Transactional
+	public void	deleteArticle(Long id)  {
+		Article article = articleRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Article not found with id: " + id));
+		s3Service.deleteFile(article.getS3Key());
+		articleRepository.delete(article);
+	}
 	private ArticleResponseDto toResponseDto(Article article) {
 
 		return ArticleResponseDto.builder()
@@ -57,7 +87,8 @@ public class ArticleService {
 				.content(article.getContent())
 				.createdAt(article.getCreatedAt())
 				.updatedAt(article.getUpdatedAt())
+				.imageUrl(article.getImageUrl())
+				.originalFileName(article.getOriginFileName())
 				.build();
-
 	}
 }

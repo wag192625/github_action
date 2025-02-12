@@ -5,6 +5,7 @@ import com.example.backend.dto.ArticleResponseDto;
 import com.example.backend.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,13 +22,27 @@ public class ArticleController {
 	}
 
 	@PostMapping
-	public ArticleResponseDto createArticle(@RequestBody ArticleRequestDto requestDto) {
+	public ArticleResponseDto createArticle(
+			@RequestParam("title") String title,
+			@RequestParam("content") String content,
+			@RequestParam("file") MultipartFile file
+			) {
+
+		ArticleRequestDto requestDto = ArticleRequestDto.builder()
+				.title(title)
+				.content(content)
+				.file(file)
+				.build();
+
 		return articleService.createArticle(requestDto);
 	}
-
-  @GetMapping("/{id}")
+	@GetMapping("/{id}")
 	public ArticleResponseDto getArticleById(@PathVariable Long id) {
 		return articleService.getArticleById(id);
 	}
 
+	@DeleteMapping("/{id}")
+	public void deleteArticleById(@PathVariable Long id) {
+		articleService.deleteArticle(id);
+	}
 }
